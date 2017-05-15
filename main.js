@@ -1,4 +1,4 @@
-const person1 = {
+var person1 = {
 	firstName: 'Anna',
 	lastName: 'Petrova',
 	number: 0800000000,
@@ -10,10 +10,10 @@ const person1 = {
 		facebook: 'Anna Petrova'
 	},
 	guickCall: true,
-    extraNumber: {
-    	number2: 0800888888,
-    	number2Owner: 'Tatiana',
-    	number2Relation: 'Mother'
-    }
+        extraNumber: {
+    	        number2: 0800888888,
+    	        number2Owner: 'Tatiana',
+    	        number2Relation: 'Mother'
+        }
 };
 
