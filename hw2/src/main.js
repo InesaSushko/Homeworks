@@ -63,32 +63,13 @@ console.log(sliceString); // YouTube
 
  let frameworks = [4.7, 'Angular', '4Angular', 'React/Redux'];
 
- let x = `google released new version ${frameworks[1]} ${Math.floor(frameworks[0])} But real speed is ${frameworks[frameworks.length - 1]}`;
+ let x = `google released new version ${frameworks[1]}${Math.floor(frameworks[0])}\
+ But real speed is ${frameworks[frameworks.length - 1]}`;
+ 
  console.log(x);
-
-let x =
-  'google \
-released ' +
-  'new version\
- ' +
-  frameworks[1] +
-  Math.floor(frameworks[0]) +
-  '\ 
-But real speed is ' +
-  `${frameworks[frameworks.length - 1]}`;
-
-  console.log(x);
 
 
 
 // LINKS
 // https://dorey.github.io/JavaScript-Equality-Table/
 
-
-/* 6. 
-
-  
-
-
-
-*/
