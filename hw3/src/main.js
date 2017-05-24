@@ -143,6 +143,7 @@ console.log( fizzBuzz(21)); // 'Fizz'
 Добавьте первые 3 аргумента в массив и вызовите переданную функцию с данным массивом
 
 */
+
 var arrMain = [];
 
 
@@ -158,5 +159,4 @@ let func = function(variable) {
 };
 
 console.log(super2('string', 'another string', 'one more string', func(arrMain)));
-
  
