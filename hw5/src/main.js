@@ -90,7 +90,7 @@ function nameShuffler(names) {
     arrName.unshift( arrName.pop() );
     return (arrName.join(' '));
 }
-
+//split().reverse().join()
 
 console.log(nameShuffler('john McClane'));
 console.log(nameShuffler('Arnold Schwarzenegger'));
@@ -155,7 +155,7 @@ function random(input) {
     if( input[0] >= difer ) {
         return (input[0] - difer);
     }
-}
+};
 
 
 
@@ -163,7 +163,7 @@ console.log(random([1, 3, 5, 9]));
 console.log(random([0, 8, 16, 32]));
 console.log(random([0, 16, 24, 32]));
 console.log(random([4, 6, 8, 10]));
-
+console.log(random([1, 7, 10, 13]));
 
 
 /*
@@ -187,6 +187,8 @@ console.log(random([4, 6, 8, 10]));
 
 let bracesInBraces = [[1,2],[3,[4]],5, 10];
 let bracesInBraces2 = [25,10,[10,[15]]];
+let bracesInBraces3 = [[[0, 10, 11], [12, [20]],25,10,[10,[15]]]];
+
 
 
 function openBraces(arr) {
@@ -204,3 +206,5 @@ function openBraces(arr) {
 
 console.log(openBraces(bracesInBraces));
 console.log(openBraces(bracesInBraces2));
+console.log(openBraces(bracesInBraces3));
+
