@@ -34,9 +34,7 @@ console.log(z(x));
  *
  * */
 
- let dollarSign = function(tagName) {
-   return `<${tagName}></${tagName}>`
- };
+ let dollarSign = tagName => `<${tagName}></${tagName}>`
 
 let createBODY = dollarSign('body');
 let createDIV = dollarSign('div');
