@@ -51,39 +51,61 @@ console.log(createDIV); // <div></div>
  *  Передаваемое значение должно возвращаться в виде html тэгов (TASK 1)
  *  Передаваемые аргументы должны быть только в виде строки
  * */
+//псевдокод к ф-ции add
+// 1. создаем переменную newTag - строку с добавляемым тэгом
+// 2. Проверяем, есть ли в объекте уже свойство html
+// 3. Если свойства нет, создаем и присваиваем значение - строку с тэгом, добавляем в пустой масив 
+//    arrOfTags первый тэг (полностью)
+// 4. Если свойство есть (уже не первый тэг), создаем переменную lastTag - показывает последный 
+//    добавленный тэг
+// 5. Создаем переменную middle - показывает место в строке, куда будем вставлять тэг
+// 6. Делаем проверку, есть ли второй передаваемый параметр с текстом внутри тэга. 
+//    Если есть, переприсваиваем newTag уже с этим текстом.
+// 7. Добавляем к свойству объекта 'html' передаваемый тэг
+// 8. Возвращаем объект
 
 var ezjQuery = {
 
-};
+  arrOfTags : [],
 
-ezjQuery.add = function(tagName, insideInfo) {
-  var newTag = `<${tagName}></${tagName}>`;
+  add : function(tagName, insideInfo) {
+    let newTag = `<${tagName}></${tagName}>`;
 
-  if(ezjQuery.html) {
-    let middle = ezjQuery.html.indexOf('/')-1
-    if (insideInfo) {
-      newTag = `<${tagName}>${insideInfo}</${tagName}>`
-    }
-    ezjQuery.html = ezjQuery.html.slice(0, middle) + newTag + ezjQuery.html.slice( middle );
-  } 
+    if(this.html) {
+      let lastTag = this.arrOfTags[this.arrOfTags.length - 1];
+      let middle = this.html.indexOf(lastTag) + (lastTag.lastIndexOf('</'));
+      if (insideInfo) {
+        newTag = `<${tagName}>${insideInfo}</${tagName}>`
+      }
+      this.html = this.html.slice(0, middle) + newTag + this.html.slice( middle );
+    } 
 
-  else {
-    ezjQuery.html = newTag;
-  };
+    else {
+     this.html = newTag;
+    };
 
-  return ezjQuery;
-};
+    this.arrOfTags.push(newTag);
+    return this;
+  },
 
-ezjQuery.render = function() {
-  let tags = this.html;
-  this.html = '';
-  return( tags )
+  render : function() {
+    let tags = this.html;
+    this.html = '';
+    return( tags )
+  },
+
 };
 
   // ezjQuery.add('body') //<body></body>
   // ezjQuery.add('div') //<body></body><div></div>
   // ezjQuery.add('h1'); //<body></body><div></div><h1></h1>
 
+  // reduce : function() {
+  //   let lastTag = this.arrOfTags[this.arrOfTags.length-1];
+  //   let lastTagIndex = this.html.indexOf(lastTag);
+  //   this.html = this.html.slice(0, lastTagIndex) + this.html.slice( lastTagIndex + lastTag.length)
+  //   return this
+  // }
 /*
  *
  * TASK 3
@@ -104,7 +126,9 @@ ezjQuery.render = function() {
    .add('div') // <body><div></div></body>
    .add('ul') // <body><div><ul></ul></div></body>
    .add('li', 'Hello') //<body><div><ul><li>Hello</li></ul></div></body>
-   .render();
+   .add('div', 'jj/<>')
+   .add('p')
+   .render()
  console.log(helloList); // <body><div><ul><li>Hello</li></ul></div></body>
 // //  Обратите внимание, что после вызова render создание строки началось сначала
 
