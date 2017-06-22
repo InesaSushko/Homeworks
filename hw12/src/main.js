@@ -37,7 +37,7 @@
 function Http() {};
 //сохраняем передаваемую в createServer функцию в класс под именем func
 Http.prototype.createServer = function(fn) {
-  this.func = arguments[0];
+  this.func = fn;
   return this 
 };
 // вызываем сохр
