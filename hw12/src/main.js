@@ -8,20 +8,6 @@
  *
  * createServer() - принимает один аргумент функцию с двумя параметрами ctx и next
  */
-  var ctx = {
-    req: {},
-    PORT: 111111,
-    url: 'url',
-    res: {},
-    status: 222222,
-    message: 'string',
-    header: {
-      contenttype: 'application/json'
-    },
-  };
-  function next() {
-    console.log('next function')
-  }
  /*
  *
  * listen(PORT, host) - в консоле должна отобразится надпись
@@ -37,13 +23,25 @@
 function Http() {};
 //сохраняем передаваемую в createServer функцию в класс под именем func
 Http.prototype.createServer = function(fn) {
-  this.func = fn;
-  return this 
+  let ctx = {
+    req: {},
+    PORT: 111111,
+    url: 'url',
+    res: {},
+    status: 222222,
+    message: 'string',
+    header: {
+      contenttype: 'application/json'
+    },
+  };
+  let next = () => {};
+  this.func = () => fn.call(this, ctx, next) ;
+  return this
 };
-// вызываем сохр
+
 Http.prototype.listen = function(PORT, host) {
   console.log(`Server running on https://${host}:${PORT}`)
-  return this.func(ctx, next)
+  this.func()
 }
 
 
@@ -124,11 +122,10 @@ function someFunc(greeting) {
 };
 
 function wrapper(f) {
-  function insideFunc(greeting){
+  return function (greeting){ 
     console.log(greeting);
     f.call(this, greeting)
   };
-  return insideFunc
 };
 
 

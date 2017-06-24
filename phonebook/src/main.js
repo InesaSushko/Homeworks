@@ -15,20 +15,22 @@ function PhoneBook() {
 // проверяем длину получаемого номера, если длина == 10,
 // разделяем номер на отдельные части и соединяем со скобками и пробелами
 PhoneBook.prototype.formatNum = function(num) {
-  if (num.length == 10) {
-    let part1 = num.slice(0, 3);
-    let part2 = num.slice(3, 5);
-    let part3 = num.slice(5, 7);
-    let part4 = num.slice(7);
-    return `(${part1}) ${part2}-${part3}-${part4}`;
+  if (this.checkIfNumber(num)) {
+    if (num.length == 10) {
+      let part1 = num.slice(0, 3);
+      let part2 = num.slice(3, 5);
+      let part3 = num.slice(5, 7);
+      let part4 = num.slice(7);
+      return `(${part1}) ${part2}-${part3}-${part4}`;
+    } 
   } else {
-    console.log( "Not enough numbers!!!" );
+    return false
   }
 };
 
 //проверяем на тип получаемого номера и чтобы это был не undefined
 PhoneBook.prototype.checkIfNumber = function(num) {
-  return +num === +num && typeof (+num === "number") ? true : false;
+  return !isNaN(num) ? true : false;
 };
 
 // 1.проверяем, является ли номер числом черз ф-цию checkIfNumber и, если возвращает true, форматируем номер через 
@@ -37,36 +39,29 @@ PhoneBook.prototype.checkIfNumber = function(num) {
 // 3. в другом случае, добавляем в массив с контактами данный контакт, преобразовывая в нижний регистр
 // 4. к свойствам добавляем свойство id, кот.увеличивается с каждым добавлением контакта на 1
 PhoneBook.prototype.addUser = function(firstName, lastName, num) {
-  let formatedNum = "";
-  if (this.checkIfNumber(num)) {
-    formatedNum = this.formatNum(num);
 
-    if (this.users.every(elem => elem.num !== formatedNum)) {
+  let newNum = this.formatNum(num);
+  if (newNum) {
+    if (this.users.every(elem => elem.number != newNum)) {
       this.id ++ ;
       this.users.push({
-        name: firstName.toLowerCase(),
-        familyName: lastName.toLowerCase(),
-        number: formatedNum,
-        id: this.id
-      });
-    }
-  } else {
-    console.log(
-      "There is a mistake in number or user with this number already exists"
-    );
-  }
+         name: firstName.toLowerCase(),
+         familyName: lastName.toLowerCase(),
+         number: newNum,
+         id: this.id
+      })
+    } else { console.log( "Contact with the same number already exists" )}
+  } else { console.log( "Not a right format!!!" )};
 };
 
 // 1. Преобразуем в нижний регистр передаваемые параметры
 // 2. Перебираем все элементы массива с контактами, и если и имя и фамилия в массиве совпадают с параметрами, удаляем
 //    объект из массива
 PhoneBook.prototype.deleteUser = function(firstName, lastName) {
-  this.users.forEach((elem, index) => {
-    let nameLow = firstName.toLowerCase();
-    let lastNameLow = lastName.toLowerCase();
-    if (elem.name === nameLow && elem.familyName === lastNameLow) {
-      this.users.splice(index, 1);
-    }
+  let nameLow = firstName.toLowerCase();
+  let lastNameLow = lastName.toLowerCase();
+  this.users = this.users.filter( elem => {
+    return elem.name != nameLow && elem.familyName != lastNameLow
   });
 };
 
@@ -88,25 +83,23 @@ PhoneBook.prototype.findContact = function(toFind) {
 //если меняем номер, проверяем, евляется ли передаваемый параметр числом и форматируем его
 //заменяем в объектке нужное свойство на передаваемое значение
 PhoneBook.prototype.changeContact = function(id, param, newValue) {
-  let objectToChange;
-  
-  this.users.forEach((elem, index) => {
+
+  this.users.forEach(elem => {
     if(elem.id === id){
-      objectToChange = this.users[index];
-    }
+
+      if (param === 'number') {
+        
+        if(this.formatNum(newValue)) {
+          elem.number = this.formatNum(newValue)
+        } else console.log ('There is a mistake in number')
+
+      } else elem[param] = newValue.toLowerCase()
+
+    };
   });
-
-  if (param === 'number'){
-    if(this.checkIfNumber(newValue)){
-      return objectToChange.number = this.formatNum(newValue)
-    } else {
-      console.log('There is a mistake in number')
-    }
-  } else {
-    objectToChange[param] = newValue.toLowerCase()
-
-  }
 };
+
+
 
 PhoneBook.prototype.sortContacts = function(param) {
   this.users.sort((a, b) => (a[param] > b[param] ? 1 : -1));
@@ -120,15 +113,29 @@ PhoneBook.prototype.filterContacts = function(key, value) {
   if(key === 'number') {
     seekValue = this.formatNum(value)
   }
-  return this.users.filter(elem => elem[key] === seekValue.toLowerCase())
+  return this.users.filter(elem => elem[key] == seekValue.toLowerCase())
 };
 
 
 
 
-let newNumber = new PhoneBook();
+let myNumbers = new PhoneBook();
+myNumbers.addUser('Inesa', 'Sushko', '0505050501');
+myNumbers.addUser('Nikolay', 'GONCHARENKO', '0662562563');
+myNumbers.addUser('Anna', 'Pelyh', '06685858');   // контакт не добавится, напишет неправильный формат номера
+myNumbers.addUser('Roman', 'PELYH', '0662562563');  //контакт не добавится, напишет, что такой номер уже есть
+myNumbers.addUser('Roman', 'PELYH', '0502562563'); 
+myNumbers.addUser('ALINA', 'SuShko', '0951744768');
+myNumbers.deleteUser('roman', 'pelyh');  //удалит, даже если разный регистр
+console.log(myNumbers.findContact('IN')) // покажет массив из 2х объектов: и с именем Алина и сименем Инесса
+console.log(myNumbers.findContact('niko'));
+myNumbers.changeContact(1, 'name', 'Liz');
+myNumbers.changeContact(1, 'number', '066321456'); //не поменяет, напишет что в номере ошибка
+myNumbers.sortContacts('number');
+console.log(myNumbers.filterContacts('familyName', 'SUSHKO')) //покажет массив с 2мя объектами с фамилиями Сушко
 
 
 
 
+console.log(myNumbers.users)
 
