@@ -142,7 +142,7 @@ student.watchMovies("Harry Potter");
 
 let startTimer = () => {
   let timer = 1000;
-  let count = 1;
+  let count = 2;
   let serverResponse = i => {
     return setTimeout(function() {
       console.log("zzzz");
@@ -150,13 +150,13 @@ let startTimer = () => {
     }, (timer = timer / 2));
   };
   for (let i = 10; i >= 1; i--) {
-    count += 1000;
-    timer = timer + count;
+    count += 2;
+    timer = 1000 * count;
     serverResponse(i);
   }
 };
 
-// startTimer();
+ startTimer();
 
 // // @ SUPER
 
@@ -197,9 +197,9 @@ class DataBase {
 }
 
 
-const dataBase = new DataBase();
-console.log(dataBase)
-dataBase.query();
+// const dataBase = new DataBase();
+// console.log(dataBase)
+// dataBase.query();
 // // 5
 // // 4
 // // 3
