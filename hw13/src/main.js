@@ -150,8 +150,8 @@ let startTimer = () => {
     }, (timer = timer / 2));
   };
   for (let i = 10; i >= 1; i--) {
-    count += 2;
     timer = 1000 * count;
+    count += 2;
     serverResponse(i);
   }
 };
