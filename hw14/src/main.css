@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+body{
+    font-family: 'Raleway', sans-serif;
+    color: #0c2631;
+    background-color: #edf7fb;
+}
+h1{
+    text-align: center;
+}
+ol{
+    max-width: 600px;
+    margin: 0 auto;
+}
+li {
+    padding-top: 20px;
+}
+form input[type="checkbox"] {
+    margin-right: 10px;
+}
+button {
+    display: block;
+    margin: 0 auto;
+    margin-top: 35px;
+    padding: 10px 30px;
+    background-color: #0c2631;
+    border-style: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #edf7fb;
+}
