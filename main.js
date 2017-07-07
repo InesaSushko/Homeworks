@@ -9,12 +9,6 @@
  */
 
 const solution2 = arr => {
-  // if( arr.length == 3 ) {
-  //   let arr1 = [];
-  //   let arr2 = [];
-  //   arr.forEach ( elem => {arr1.push(elem[0]); arr2.push(elem[1]) })
-  //     return [arr1, arr2]
-  // }
   return arr.reduce((prevValue, elem) => {
     return elem.map((element, index) => {
       let prev = prevValue[index];
