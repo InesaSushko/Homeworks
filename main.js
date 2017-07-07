@@ -44,7 +44,7 @@ const navigation = [
 
 
 const visualArray = arr => {
-  let x = arr.reduce((prevValue, elem) => {
+  let finalTags = arr.reduce((prevValue, elem) => {
     var tag = ``;
     for (let key in elem) {
       if (key === `name`) {
@@ -60,8 +60,8 @@ const visualArray = arr => {
     return (prevValue += tag);
   }, ``);
 
-  document.body.innerHTML = x;
-  return x;
+  document.body.innerHTML = finalTags;
+  return finalTags;
 };
 
 visualArray(navigation);
