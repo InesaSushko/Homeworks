@@ -64,7 +64,6 @@ https://github.com/aleksandra-maslennikova/telephone-book/blob/master/index.html
 Выглядеть должно так же: https://aleksandra-maslennikova.github.io/telephone-book/index.html
 */
 
-
 class Html {
   constructor() {
     this.tableHeadings = ["Name", "Last Name", "Email"];
@@ -82,52 +81,63 @@ class Html {
     ];
   }
 
-  newTag(obj) {
-    let newT = document.createElement(obj.tag);
-    if (obj.tagClass) newT.className = obj.tagClass;
-    if (obj.text) newT.textContent = obj.text;
-    return newT;
+  // newTag(obj) {
+  //   let newT = document.createElement(obj.tag);
+  //   if (obj.tagClass) newT.className = obj.tagClass;
+  //   if (obj.text) newT.textContent = obj.text;
+  //   return newT;
+  // }
+  header() {
+    const head = `<header class='header'><div class='container top-radius'><h2>Contacts</h2></div></header>`;
+    return head
+  }
+
+  form () {
+    const form = `<form class='form-inline search-form'>`;
+    const div = `<div class='form-group>`;
+    const label = `<label class='sr-only' for= 'search'>Search</label>`;
+    const input = `<input type="text" class="form-control" id= "search" placeholder="Search">`;
+    return form+div+label+input+`</div></form>`
   }
 
   table() {
-    const table = this.newTag({tag:'table', tagClass: 'table table-hover contacts'});
-    const thead = this.newTag({tag:"thead"});
-    const tr = this.newTag({tag:'tr'});
-    const tbody = this.newTag({tag:'tbody'});
+    const table = this.newTag({
+      tag: "table",
+      tagClass: "table table-hover contacts"
+    });
+    const thead = this.newTag({ tag: "thead" });
+    const tr = this.newTag({ tag: "tr" });
+    const tbody = this.newTag({ tag: "tbody" });
 
     this.tableHeadings.forEach(elem => {
-      const th = this.newTag({tag:'th', text:elem});
+      const th = this.newTag({ tag: "th", text: elem });
       tr.appendChild(th);
     });
 
     this.contacts.forEach(elem => {
-      const tr = this.newTag({tag: 'tr'});
+      const tr = this.newTag({ tag: "tr" });
       tbody.appendChild(tr);
 
-      for(let key in elem) {
-        const td = this.newTag({tag: 'td', text: elem[key]})
-        tr.appendChild(td)
+      for (let key in elem) {
+        const td = this.newTag({ tag: "td", text: elem[key] });
+        tr.appendChild(td);
       }
-    })
+    });
 
     table.appendChild(thead);
     table.appendChild(tbody);
     thead.appendChild(tr);
-    return table
+    return table;
   }
 
   main() {
-    const main = this.newTag({tag:"main"});
-    const div = this.newTag({tag:"div", tagClass:'Container'});
+    const main = this.newTag({ tag: "main" });
+    const div = this.newTag({ tag: "div", tagClass: "Container" });
 
     main.appendChild(div);
     div.appendChild(this.table());
     document.body.appendChild(main);
   }
-
 }
 let phoneBook = new Html();
 phoneBook.main();
-
-
-
