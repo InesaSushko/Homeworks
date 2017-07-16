@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Carousel</title>
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    ul,
+    li,
+    img {
+        margin: 0;
+        padding: 0;
+    }
+
+    main {
+        max-width: 748px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    ul {
+        list-style: none;
+        height: 300px;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+
+    li {
+        float: left;
+    }
+
+    button {}
+
+    .right {
+        float: right;
+    }
+    .pagination li{
+        display: inline-block;
+        float: none;
+        text-align: center;
+        padding: 0 15px;
+    }
+    .pagination {
+        text-align: center;
+    }
+</style>
+
+<body>
+    <main>
+        <ul class="carousel">
+            <li style="display: none"><img src="img/img1.jpg" alt="1"></li>
+            <li style="display: block"><img src="img/img2.jpg" alt="2"></li>
+            <li style="display: none"><img src="img/img3.jpg" alt="3"></li>
+        </ul>
+        <button class="left"><=</button>
+        <button class="right">=></button>
+        <ul class = "pagination">
+            <li>1</li>
+            <li style="font-size:2em; color:red">2</li>
+            <li>3</li>
+        </ul>
+        <div class="fetch">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum possimus earum enim distinctio hic quas illo repellendus illum labore quidem aliquam natus, voluptas modi, debitis quasi eum quam deserunt quae!</div>
+    </main>
+    <script src = "src/main.js"></script>
+</body>
+
+</html>
